@@ -60,15 +60,14 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+   public function show($id)
     {
-         $task = Task::find($id);
+        $task = Task::find($id);
 
         return view('tasks.show', [
             'task' => $task,
         ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
