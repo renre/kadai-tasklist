@@ -26,7 +26,7 @@
                     @else
                         <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
                         <li>{!! link_to_route('login', 'Login') !!}</li>
-                         <li>{!! link_to_route('tasks.create', '新規タスクの投稿') !!}</li>
+
                     @endif   
                  
                  
