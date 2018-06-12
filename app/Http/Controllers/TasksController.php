@@ -74,13 +74,12 @@ class TasksController extends Controller
             'status' => 'required|max:10',  
             'content' => 'required|max:191',
         ]);
-        
-        $task = new Task;
-         $task->status = $request->status; 
-        $task->content = $request->content;
-        $task->save();
-        
-        return redirect('/');
+          $request->user()->tasks()->create([
+           'status'=> $request->status,
+            'content' => $request->content,
+        ]);
+      
+        return redirect()->back();
     }
 
     /**
@@ -105,16 +104,19 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
-        
-        return view('tasks.edit',[
-            'task' => $task,
-            ]);
+      if(\Auth::check()){
+          $task=Task::find($id);
+          return view('tasks.edit',[
+              'task'=>$task
+              ]);
+      }
+      else{
+          return view('welcome');
+      }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
+          
+          
+   /**      
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -125,13 +127,11 @@ class TasksController extends Controller
             'status' => 'required|max:10', 
             'content' => 'required|max:191',
         ]);
-
         
         $task = Task::find($id);
              $task->status = $request->status;    // add
         $task->content = $request->content;
         $task->save();
-        
         return redirect('/');
     }
 
@@ -143,9 +143,11 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::find($id);
+        $task = \App\Task::find($id);
+       
+         if (\Auth::user()->id === $task->user_id) {
         $task->delete();
-        
-        return redirect('/');
+         }
+        return redirect()->back();
     }
 }

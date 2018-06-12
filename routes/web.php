@@ -15,8 +15,8 @@
 Route::get('/', 'TasksController@index');
 
 
-Route::get('index', 'TasksController@index');
-    Route::resource('tasks', 'TasksController', ['only' => ['store', 'destroy']]);
+Route::get('index', 'TasksController@index')->name('index.get');
+    Route::resource('tasks', 'TasksController', ['only' => ['store','edit','update', 'destroy']]);
 
    
    Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
