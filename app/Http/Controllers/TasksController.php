@@ -33,18 +33,17 @@ class TasksController extends Controller
                      ];
             $data += $this->counts($user);
             return view('users.show', $data);
-        }else
-   {
+        }
+        else
+        {
             return view('welcome');
-        
              $tasks = Task::all();
-
-        return view
-        ('tasks.index',
-        [
+           return view
+            ('tasks.index',
+            [
             'tasks' => $tasks,
-        ]);
-    }
+                    ]);
+        }
     }
 
     /**
@@ -103,7 +102,8 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {$task=Task::find($id);
+    {
+        $task=Task::find($id);
       if(\Auth::user()->id === $task->user_id){
           $task=Task::find($id);
           return view('tasks.edit',[
