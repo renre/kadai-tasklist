@@ -20,7 +20,7 @@ class UsersController extends Controller
             public function show($id)
     {
         
-     
+     if(\Auth::user()->id ===$id){
         $user = User::find($id);
         $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
 
@@ -34,7 +34,9 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
+    else{
+        return redirect()->back();
+    }
     
-    
-    
+    }
 }
